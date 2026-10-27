@@ -9,7 +9,6 @@ repositories {
     maven { name = 'Fabric'; url = 'https://maven.fabricmc.net' }
 }
 
-// 钛 Lite：编译期依赖 + 手工 jar 嵌套（Loom 的 include 不接受 file 依赖，W0 实测）
 def titaniumJar = rootProject.file("libs/titanium-${titanium_version}-fabric-${mc_range_label}.jar")
 
 dependencies {
