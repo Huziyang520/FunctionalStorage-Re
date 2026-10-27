@@ -36,6 +36,6 @@ side = "BOTH"
 [[dependencies.${mod_id}]]
 modId = "titanium"
 type = "required"
-versionRange = "[${titanium_version},)"
+versionRange = "[4.0,)"
 ordering = "NONE"
 side = "BOTH"

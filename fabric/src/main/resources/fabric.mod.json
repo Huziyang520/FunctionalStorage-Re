@@ -29,6 +29,14 @@
     "fabric-api": "*",
     "minecraft": "${fabric_minecraft_range}",
     "java": ">=${java_version}",
-    "titanium": ">=${titanium_version}"
+    "titanium": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.functionalstorage.feedback": "https://github.com/Huziyang520/FunctionalStorage-Re/issues",
+        "modmenu.functionalstorage.backup_feedback": "https://issue.mengcai.online/"
+      }
+    }
   }
 }
