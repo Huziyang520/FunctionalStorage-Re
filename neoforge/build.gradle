@@ -8,8 +8,6 @@ repositories {
     mavenCentral()
 }
 
-    // 钛 Lite：编译期依赖 + JarJar 内嵌（MDG 的 jarJar 配置会生成 META-INF/jarjar/metadata.json）
-    // 机制尚未验证，见 文档包/开发Plan-26X.md 的 W0 探针
     def titaniumJar = rootProject.file("libs/titanium-${titanium_version}-neoforge-${mc_range_label}.jar")
 
 dependencies {
