@@ -9,21 +9,24 @@ repositories {
     maven { name = 'Fabric'; url = 'https://maven.fabricmc.net' }
 }
 
+// 钛 Lite：编译期依赖 + 手工 jar 嵌套（Loom 的 include 不接受 file 依赖，W0 实测）
+def titaniumJar = rootProject.file("libs/titanium-${titanium_version}-fabric-${mc_range_label}.jar")
+
 dependencies {
     minecraft("com.mojang:minecraft:${minecraft_version}")
     implementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
     implementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
 
-    // 钛 Lite：编译期依赖 + jar-in-jar 内嵌（Loom include 会把 jar 放进 META-INF/jars 并登记进 fabric.mod.json）
-    // 机制尚未验证，见 文档包/开发Plan-26X.md 的 W0 探针
-    def titaniumJar = rootProject.file("libs/titanium-${titanium_version}-fabric-${mc_range_label}.jar")
-
     if (titaniumJar.exists()) {
         compileOnly files(titaniumJar)
-        if (configurations.findByName('include') != null) {
-            add('include', files(titaniumJar))
-        } else {
-            logger.lifecycle("[${mod_id}] Loom 没有 include 配置：钛 Lite 需改用手工内嵌（见 Plan W0）")
+    }
+}
+
+if (titaniumJar.exists()) {
+    tasks.named('jar', Jar) {
+        from(titaniumJar) {
+            into 'META-INF/jars'
+            rename { 'titanium.jar' }
         }
     }
 }

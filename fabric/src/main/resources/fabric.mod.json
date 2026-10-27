@@ -20,6 +20,11 @@
       "com.buuz135.functionalstorage.fabric.FunctionalStorageFabric"
     ]
   },
+  "jars": [
+    {
+      "file": "META-INF/jars/titanium.jar"
+    }
+  ],
   "mixins": [
     "${mod_id}.mixins.json",
     "${mod_id}.fabric.mixins.json"
