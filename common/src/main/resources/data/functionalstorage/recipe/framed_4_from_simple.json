@@ -1,0 +1,42 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "functionalstorage:framed_4"
+    }
+  ],
+  "type": "functionalstorage:copy_components",
+  "category": "misc",
+  "components": [
+    "functionalstorage:tile"
+  ],
+  "copyIndex": 1,
+  "key": {
+    "C": {
+      "neoforge:ingredient_type": "neoforge:difference",
+      "base": [
+        "functionalstorage:oak_4",
+        "functionalstorage:spruce_4",
+        "functionalstorage:birch_4",
+        "functionalstorage:jungle_4",
+        "functionalstorage:acacia_4",
+        "functionalstorage:dark_oak_4",
+        "functionalstorage:crimson_4",
+        "functionalstorage:warped_4",
+        "functionalstorage:mangrove_4",
+        "functionalstorage:cherry_4",
+        "functionalstorage:pale_oak_4",
+        "functionalstorage:framed_4",
+        "functionalstorage:fluid_4"
+      ],
+      "subtracted": "functionalstorage:framed_4"
+    },
+    "P": "#c:nuggets/iron"
+  },
+  "pattern": [
+    "PCP"
+  ],
+  "result": {
+    "id": "functionalstorage:framed_4"
+  }
+}

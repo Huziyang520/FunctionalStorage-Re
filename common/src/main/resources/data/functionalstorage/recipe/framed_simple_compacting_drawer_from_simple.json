@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "functionalstorage:framed_simple_compacting_drawer"
+    }
+  ],
+  "type": "functionalstorage:copy_components",
+  "category": "misc",
+  "components": [
+    "functionalstorage:tile"
+  ],
+  "copyIndex": 4,
+  "key": {
+    "D": "functionalstorage:simple_compacting_drawer",
+    "S": "#c:nuggets/iron"
+  },
+  "pattern": [
+    "SSS",
+    "SDS",
+    " S "
+  ],
+  "result": {
+    "id": "functionalstorage:framed_simple_compacting_drawer"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "functionalstorage:iron_downgrade"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "neoforge:ingredient_type": "functionalstorage:tag_without_component",
+      "tag": "functionalstorage:drawer"
+    },
+    "I": "#c:ingots/iron"
+  },
+  "pattern": [
+    "III",
+    "IDI",
+    "III"
+  ],
+  "result": {
+    "id": "functionalstorage:iron_downgrade"
+  }
+}

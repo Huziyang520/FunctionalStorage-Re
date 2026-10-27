@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "functionalstorage:framed_storage_controller"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:quartz_block",
+    "C": {
+      "neoforge:ingredient_type": "functionalstorage:tag_without_component",
+      "tag": "functionalstorage:drawer"
+    },
+    "D": "minecraft:comparator",
+    "I": "#c:nuggets/iron"
+  },
+  "pattern": [
+    "IBI",
+    "CDC",
+    "IBI"
+  ],
+  "result": {
+    "id": "functionalstorage:framed_storage_controller"
+  }
+}

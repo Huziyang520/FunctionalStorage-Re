@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "functionalstorage:compacting_drawer"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "neoforge:ingredient_type": "functionalstorage:tag_without_component",
+      "tag": "functionalstorage:drawer"
+    },
+    "I": "#c:ingots/iron",
+    "P": "minecraft:piston",
+    "S": "#c:stones"
+  },
+  "pattern": [
+    "SSS",
+    "PDP",
+    "SIS"
+  ],
+  "result": {
+    "id": "functionalstorage:compacting_drawer"
+  }
+}

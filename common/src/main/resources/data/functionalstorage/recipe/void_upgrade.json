@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "functionalstorage:void_upgrade"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "neoforge:ingredient_type": "functionalstorage:tag_without_component",
+      "tag": "functionalstorage:drawer"
+    },
+    "I": "#c:obsidians"
+  },
+  "pattern": [
+    "III",
+    "IDI",
+    "III"
+  ],
+  "result": {
+    "id": "functionalstorage:void_upgrade"
+  }
+}
