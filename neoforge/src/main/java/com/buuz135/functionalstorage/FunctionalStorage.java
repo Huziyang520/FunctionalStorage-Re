@@ -363,12 +363,12 @@ public class FunctionalStorage extends ModuleController {
 
         eventBus.addListener((final ModifyDefaultComponentsEvent event) -> {
 
-            event.modify(VOID_UPGRADE.get(), b -> b.set(FSAttachments.INCOMPATIBLE_UPGRADES.get(), HolderSet.direct(VOID_UPGRADE.get().builtInRegistryHolder())));
-            event.modify(DRIPPING_UPGRADE.get(), b -> b.set(FSAttachments.FUNCTIONAL_BEHAVIOR.get(),
+            event.modify(VOID_UPGRADE.get(), (b, provider, item) -> b.set(FSAttachments.INCOMPATIBLE_UPGRADES.get(), HolderSet.direct(VOID_UPGRADE.get().builtInRegistryHolder())));
+            event.modify(DRIPPING_UPGRADE.get(), (b, provider, item) -> b.set(FSAttachments.FUNCTIONAL_BEHAVIOR.get(),
                     new ExecuteEveryBehavior(20, new GenerateFluidBehavior(new FluidStackTemplate(Fluids.LAVA, 20)))));
-            event.modify(WATER_GENERATOR_UPGRADE.get(), b -> b.set(FSAttachments.FUNCTIONAL_BEHAVIOR.get(),
+            event.modify(WATER_GENERATOR_UPGRADE.get(), (b, provider, item) -> b.set(FSAttachments.FUNCTIONAL_BEHAVIOR.get(),
                     new ExecuteEveryBehavior(1, new GenerateFluidBehavior(new FluidStackTemplate(Fluids.WATER, 2000)))));
-            event.modify(OBSIDIAN_UPGRADE.get(), b -> b.set(FSAttachments.FUNCTIONAL_BEHAVIOR.get(),
+            event.modify(OBSIDIAN_UPGRADE.get(), (b, provider, item) -> b.set(FSAttachments.FUNCTIONAL_BEHAVIOR.get(),
                     new ExecuteEveryBehavior(300, new GenerateItemBehavior(new ItemStackTemplate(Items.OBSIDIAN)))));
         });
 
