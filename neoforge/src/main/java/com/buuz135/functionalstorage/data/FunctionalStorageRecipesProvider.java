@@ -8,12 +8,13 @@ import com.buuz135.functionalstorage.recipe.TagWithoutComponentIngredient;
 import com.buuz135.functionalstorage.util.StorageTags;
 import com.hrznstudio.titanium.block.BasicBlock;
 import com.hrznstudio.titanium.recipe.generator.TitaniumShapedRecipeBuilder;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.MultiRegistryBootstrap;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -25,6 +26,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.neoforged.neoforge.common.Tags;
@@ -32,7 +34,6 @@ import net.neoforged.neoforge.common.util.Lazy;
 
 import java.util.List;
 import java.util.HashMap;
-import java.util.concurrent.CompletableFuture;
 
 import static com.buuz135.functionalstorage.FunctionalStorage.*;
 
@@ -40,8 +41,8 @@ public class FunctionalStorageRecipesProvider extends RecipeProvider {
 
     private final Lazy<List<Block>> blocksToProcess;
 
-    public FunctionalStorageRecipesProvider(HolderLookup.Provider registries, RecipeOutput output, Lazy<List<Block>> blocksToProcess) {
-        super(registries, output);
+    public FunctionalStorageRecipesProvider(BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements, Lazy<List<Block>> blocksToProcess) {
+        super(recipes, advancements);
         this.blocksToProcess = blocksToProcess;
     }
 
@@ -75,7 +76,7 @@ public class FunctionalStorageRecipesProvider extends RecipeProvider {
         TitaniumShapedRecipeBuilder.shapedRecipe(STORAGE_UPGRADES.get(StorageUpgradeItem.StorageTier.COPPER).get())
                 .pattern("IBI").pattern("CDC").pattern("IBI")
                 .define('I', Items.COPPER_INGOT)
-                .define('B', Items.COPPER_BLOCK)
+                .define('B', Items.COPPER_BLOCK.weathering().unaffected())
                 .define('C', Tags.Items.CHESTS_WOODEN)
                 .define('D', new TagWithoutComponentIngredient(StorageTags.DRAWER).toVanilla())
                 .save(output);
@@ -171,61 +172,45 @@ public class FunctionalStorageRecipesProvider extends RecipeProvider {
         new CustomCompactingRecipe(new ItemStackTemplate(Items.AMETHYST_SHARD, 4), new ItemStackTemplate(Items.AMETHYST_BLOCK)).save(output, com.buuz135.functionalstorage.util.Utils.resourceLocation("functionalstorage:compacting/amethyst"));
     }
 
-    public static class Runner extends RecipeProvider.Runner {
-        private final Lazy<List<Block>> blocksToProcess;
+    public static MultiRegistryBootstrap bootstrap(Lazy<List<Block>> blocksToProcess) {
+        return RecipeProvider.asBootstrap((recipes, advancements) -> new FunctionalStorageRecipesProvider(recipes, advancements, blocksToProcess));
+    }
 
-        public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ResourceManager resources, Lazy<List<Block>> blocksToProcess) {
-            super(output, registries.thenApply(provider -> withItemTags(provider, resources)));
-            this.blocksToProcess = blocksToProcess;
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void preloadItemTags(ResourceManager resources) {
+        TagLoader.ElementLookup<Holder<Item>> itemElements = (TagLoader.ElementLookup)
+                TagLoader.ElementLookup.fromFrozenRegistry(BuiltInRegistries.ITEM);
+        var loadedTags = new HashMap<>(TagLoader.loadTagsForRegistry(
+                resources,
+                Registries.ITEM,
+                itemElements));
+        if (!loadedTags.containsKey(Tags.Items.CHESTS_WOODEN)) {
+            throw new IllegalStateException("Datagen item tag resources did not contain "
+                    + Tags.Items.CHESTS_WOODEN.location() + "; loaded " + loadedTags.size() + " item tags");
         }
 
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        private static HolderLookup.Provider withItemTags(HolderLookup.Provider provider, ResourceManager resources) {
-            TagLoader.ElementLookup<Holder<Item>> itemElements = (TagLoader.ElementLookup)
-                    TagLoader.ElementLookup.fromFrozenRegistry(BuiltInRegistries.ITEM);
-            var loadedTags = new HashMap<>(TagLoader.loadTagsForRegistry(
-                    resources,
-                    Registries.ITEM,
-                    itemElements));
-            if (!loadedTags.containsKey(Tags.Items.CHESTS_WOODEN)) {
-                throw new IllegalStateException("Datagen item tag resources did not contain "
-                        + Tags.Items.CHESTS_WOODEN.location() + "; loaded " + loadedTags.size() + " item tags");
-            }
-
-            for (DrawerType drawerType : DRAWER_TYPES.keySet()) {
-                List<Holder<Item>> drawers = DRAWER_TYPES.get(drawerType).stream()
-                        .<Holder<Item>>map(entry -> entry.getBlock().asItem().builtInRegistryHolder())
-                        .collect(java.util.stream.Collectors.toCollection(java.util.ArrayList::new));
-                drawers.add(switch (drawerType) {
-                    case X_1 -> FLUID_DRAWER_1.getBlock().asItem().builtInRegistryHolder();
-                    case X_2 -> FLUID_DRAWER_2.getBlock().asItem().builtInRegistryHolder();
-                    case X_4 -> FLUID_DRAWER_4.getBlock().asItem().builtInRegistryHolder();
-                });
-                loadedTags.put(drawerType.getTag(), drawers);
-            }
-            loadedTags.put(StorageTags.DRAWER, DRAWER_TYPES.values().stream()
-                    .flatMap(List::stream)
+        for (DrawerType drawerType : DRAWER_TYPES.keySet()) {
+            List<Holder<Item>> drawers = DRAWER_TYPES.get(drawerType).stream()
                     .<Holder<Item>>map(entry -> entry.getBlock().asItem().builtInRegistryHolder())
-                    .toList());
-            loadedTags.put(StorageTags.FLUID_DRAWER, List.of(
-                    FLUID_DRAWER_1.getBlock().asItem().builtInRegistryHolder(),
-                    FLUID_DRAWER_2.getBlock().asItem().builtInRegistryHolder(),
-                    FLUID_DRAWER_4.getBlock().asItem().builtInRegistryHolder()));
-
-            Registry.PendingTags<Item> pendingTags = BuiltInRegistries.ITEM.prepareTagReload(
-                    new TagLoader.LoadResult<>(Registries.ITEM, loadedTags));
-            pendingTags.apply();
-            return provider;
+                    .collect(java.util.stream.Collectors.toCollection(java.util.ArrayList::new));
+            drawers.add(switch (drawerType) {
+                case X_1 -> FLUID_DRAWER_1.getBlock().asItem().builtInRegistryHolder();
+                case X_2 -> FLUID_DRAWER_2.getBlock().asItem().builtInRegistryHolder();
+                case X_4 -> FLUID_DRAWER_4.getBlock().asItem().builtInRegistryHolder();
+            });
+            loadedTags.put(drawerType.getTag(), drawers);
         }
+        loadedTags.put(StorageTags.DRAWER, DRAWER_TYPES.values().stream()
+                .flatMap(List::stream)
+                .<Holder<Item>>map(entry -> entry.getBlock().asItem().builtInRegistryHolder())
+                .toList());
+        loadedTags.put(StorageTags.FLUID_DRAWER, List.of(
+                FLUID_DRAWER_1.getBlock().asItem().builtInRegistryHolder(),
+                FLUID_DRAWER_2.getBlock().asItem().builtInRegistryHolder(),
+                FLUID_DRAWER_4.getBlock().asItem().builtInRegistryHolder()));
 
-        @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-            return new FunctionalStorageRecipesProvider(registries, output, blocksToProcess);
-        }
-
-        @Override
-        public String getName() {
-            return "Functional Storage Recipes";
-        }
+        Registry.PendingTags<Item> pendingTags = BuiltInRegistries.ITEM.prepareTagReload(
+                new TagLoader.LoadResult<>(Registries.ITEM, loadedTags));
+        pendingTags.apply();
     }
 }

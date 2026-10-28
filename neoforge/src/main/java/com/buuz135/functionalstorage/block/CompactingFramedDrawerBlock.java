@@ -40,7 +40,7 @@ import java.util.List;
 
 public class CompactingFramedDrawerBlock extends CompactingDrawerBlock implements FramedBlock {
     public CompactingFramedDrawerBlock(String name) {
-        super(name, Properties.ofFullCopy(Blocks.STONE).noOcclusion().isViewBlocking((p_61036_, p_61037_, p_61038_) -> false));
+        super(name, Properties.ofFullCopy(Blocks.STONE).noOcclusion().isViewBlocking((state, level, pos, nearPlaneBox) -> false));
     }
 
     @Override

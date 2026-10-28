@@ -10,7 +10,11 @@ import com.mojang.serialization.MapLike;
 import com.mojang.serialization.RecordBuilder;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -64,12 +68,14 @@ public class CopyComponentsRecipe implements CraftingRecipe {
             return builder;
         }
     };
+    public static final StreamCodec<ByteBuf, List<DataComponentType<?>>> COMPONENT_LIST_CODEC =
+            ByteBufCodecs.idMapper(BuiltInRegistries.DATA_COMPONENT_TYPE).apply(ByteBufCodecs.list());
     public static final StreamCodec<RegistryFriendlyByteBuf, CopyComponentsRecipe> STREAM_CODEC = new StreamCodec<>() {
         @Override
         public CopyComponentsRecipe decode(RegistryFriendlyByteBuf buffer) {
             var recipe = ShapedRecipe.STREAM_CODEC.decode(buffer);
             return new CopyComponentsRecipe(
-                    recipe, buffer.readVarInt(), buffer.readList(ByteBufCodecs.idMapper(BuiltInRegistries.DATA_COMPONENT_TYPE))
+                    recipe, buffer.readVarInt(), COMPONENT_LIST_CODEC.decode(buffer)
             );
         }
 
@@ -77,7 +83,7 @@ public class CopyComponentsRecipe implements CraftingRecipe {
         public void encode(RegistryFriendlyByteBuf buffer, CopyComponentsRecipe value) {
             ShapedRecipe.STREAM_CODEC.encode(buffer, value.wrapped);
             buffer.writeVarInt(value.copyIndex);
-            buffer.writeCollection(value.components, ByteBufCodecs.idMapper(BuiltInRegistries.DATA_COMPONENT_TYPE));
+            COMPONENT_LIST_CODEC.encode(buffer, value.components);
         }
     };
 
@@ -148,8 +154,13 @@ public class CopyComponentsRecipe implements CraftingRecipe {
             }
 
             @Override
-            public void includeRootAdvancement() {
-                output.includeRootAdvancement();
+            public <S> HolderGetter<S> lookup(ResourceKey<? extends Registry<? extends S>> key) {
+                return output.lookup(key);
+            }
+
+            @Override
+            public <S> Stream<Holder.Reference<S>> listContextElements(ResourceKey<? extends Registry<? extends S>> key) {
+                return output.listContextElements(key);
             }
         };
     }

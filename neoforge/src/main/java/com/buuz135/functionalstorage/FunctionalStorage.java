@@ -78,6 +78,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -392,14 +393,12 @@ public class FunctionalStorage extends ModuleController {
             event.addProvider(new FunctionalStorageLangProvider(event.getGenerator().getPackOutput(), MOD_ID, "en_us"));
         }
         if (event instanceof GatherDataEvent.Server) {
-            event.addProvider(new FunctionalStorageBlockTagsProvider(event.getGenerator().getPackOutput(), event.getLookupProvider(), MOD_ID));
-            event.addProvider(new FunctionalStorageItemTagsProvider(event.getGenerator().getPackOutput(), event.getLookupProvider(), MOD_ID));
-            event.addProvider(new FunctionalStorageFluidTagsProvider(event.getGenerator().getPackOutput(), event.getLookupProvider(), MOD_ID));
-            event.addProvider(new FunctionalStorageRecipesProvider.Runner(
-                    event.getGenerator().getPackOutput(),
-                    event.getLookupProvider(),
-                    event.getResourceManager(PackType.SERVER_DATA),
-                    blocksToProcess));
+            event.addProvider(new FunctionalStorageBlockTagsProvider(event.getGenerator().getPackOutput(), event.getReloadableLookupProvider(), MOD_ID));
+            event.addProvider(new FunctionalStorageItemTagsProvider(event.getGenerator().getPackOutput(), event.getReloadableLookupProvider(), MOD_ID));
+            event.addProvider(new FunctionalStorageFluidTagsProvider(event.getGenerator().getPackOutput(), event.getReloadableLookupProvider(), MOD_ID));
+            FunctionalStorageRecipesProvider.preloadItemTags(event.getResourceManager(PackType.SERVER_DATA));
+            event.createReloadableRegistryObjects(new RegistrySetBuilder()
+                    .add(FunctionalStorageRecipesProvider.bootstrap(blocksToProcess)));
         }
     }
 

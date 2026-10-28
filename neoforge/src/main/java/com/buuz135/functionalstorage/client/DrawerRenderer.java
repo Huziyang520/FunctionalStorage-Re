@@ -193,7 +193,7 @@ public class DrawerRenderer extends BaseDrawerRenderer<DrawerTile> {
                     new Vector3f(0), new Vector3f(0), .4f));
         }
 
-        matrixStack.mulPose(Axis.YP.rotationDegrees(180));
+        matrixStack.mulPose(createTransformMatrix(new Vector3f(0), Axis.YP.rotationDegrees(180), 1));
         if (options.isActive(ConfigurationToolItem.ConfigurationAction.TOGGLE_RENDER)) {
             itemState.submit(matrixStack, collector, lightCoords, OverlayTexture.NO_OVERLAY, 0);
         }

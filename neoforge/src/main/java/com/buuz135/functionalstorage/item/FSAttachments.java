@@ -10,7 +10,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -53,7 +53,7 @@ public class FSAttachments {
     public static final Supplier<DataComponentType<SizeProvider>> CONTROLLER_RANGE_MODIFIER = register("controller_range_modifier", SizeProvider.CODEC);
 
     public static final Supplier<DataComponentType<FunctionalUpgradeBehavior>> FUNCTIONAL_BEHAVIOR = register("functional_upgrade_behavior", FunctionalUpgradeBehavior.CODEC);
-    public static final Supplier<DataComponentType<HolderSet<Item>>> INCOMPATIBLE_UPGRADES = register("incompatible_upgrades", RegistryCodecs.homogeneousList(Registries.ITEM));
+    public static final Supplier<DataComponentType<HolderSet<Item>>> INCOMPATIBLE_UPGRADES = register("incompatible_upgrades", RegistryCodecs.holderSet(Registries.ITEM));
 
     private static <T> Supplier<DataComponentType<T>> register(String name, Codec<T> codec) {
         return DR.register(name, () -> DataComponentType.<T>builder().persistent(codec).build());

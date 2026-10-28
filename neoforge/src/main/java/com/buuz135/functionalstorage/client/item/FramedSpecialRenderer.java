@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.resources.model.geometry.ItemQuads;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
@@ -39,7 +40,7 @@ public final class FramedSpecialRenderer implements SpecialModelRenderer<FramedS
 
         int[] tints = new int[16];
         Arrays.fill(tints, 0xFFFFFFFF);
-        collector.submitItem(pose, ItemDisplayContext.NONE, light, overlay, outlineColor, tints, quads,
+        collector.submitItem(pose, ItemDisplayContext.NONE, light, overlay, outlineColor, tints, ItemQuads.split(quads),
                 foil ? ItemStackRenderState.FoilType.STANDARD : ItemStackRenderState.FoilType.NONE);
     }
 

@@ -24,17 +24,17 @@ public class FunctionalStorageItemTagsProvider extends ItemTagsProvider {
         var tTagAppender = this.tag(StorageTags.DRAWER);
         for (FunctionalStorage.DrawerType drawerType : FunctionalStorage.DRAWER_TYPES.keySet()) {
             FunctionalStorage.DRAWER_TYPES.get(drawerType).stream().map(BlockWithTile::block)
-                    .forEach(ho -> tTagAppender.add(ho.get().asItem()));
+                    .forEach(ho -> tTagAppender.add(ho.get().asItem().builtInRegistryHolder().key()));
         }
         for (FunctionalStorage.DrawerType drawerType : FunctionalStorage.DRAWER_TYPES.keySet()) {
             var byTypeAppender = this.tag(drawerType.getTag());
             FunctionalStorage.DRAWER_TYPES.get(drawerType).stream().map(BlockWithTile::block)
-                    .forEach(ho -> byTypeAppender.add(ho.get().asItem()));
+                    .forEach(ho -> byTypeAppender.add(ho.get().asItem().builtInRegistryHolder().key()));
         }
-        this.tag(FunctionalStorage.DrawerType.X_1.getTag()).add(FunctionalStorage.FLUID_DRAWER_1.getBlock().asItem());
-        this.tag(FunctionalStorage.DrawerType.X_2.getTag()).add(FunctionalStorage.FLUID_DRAWER_2.getBlock().asItem());
-        this.tag(FunctionalStorage.DrawerType.X_4.getTag()).add(FunctionalStorage.FLUID_DRAWER_4.getBlock().asItem());
-        this.tag(StorageTags.FLUID_DRAWER).add(FunctionalStorage.FLUID_DRAWER_1.getBlock().asItem(), FunctionalStorage.FLUID_DRAWER_2.getBlock().asItem(), FunctionalStorage.FLUID_DRAWER_4.getBlock().asItem());
+        this.tag(FunctionalStorage.DrawerType.X_1.getTag()).add(FunctionalStorage.FLUID_DRAWER_1.getBlock().asItem().builtInRegistryHolder().key());
+        this.tag(FunctionalStorage.DrawerType.X_2.getTag()).add(FunctionalStorage.FLUID_DRAWER_2.getBlock().asItem().builtInRegistryHolder().key());
+        this.tag(FunctionalStorage.DrawerType.X_4.getTag()).add(FunctionalStorage.FLUID_DRAWER_4.getBlock().asItem().builtInRegistryHolder().key());
+        this.tag(StorageTags.FLUID_DRAWER).add(FunctionalStorage.FLUID_DRAWER_1.getBlock().asItem().builtInRegistryHolder().key(), FunctionalStorage.FLUID_DRAWER_2.getBlock().asItem().builtInRegistryHolder().key(), FunctionalStorage.FLUID_DRAWER_4.getBlock().asItem().builtInRegistryHolder().key());
         this.tag(StorageTags.ARMORY_CABINET_INSERTABLE)
                 .addTag(ItemTags.SWORDS)
                 .addTag(ItemTags.AXES)
@@ -49,7 +49,7 @@ public class FunctionalStorageItemTagsProvider extends ItemTagsProvider {
                 .addTag(ItemTags.CROSSBOW_ENCHANTABLE)
                 .addTag(ItemTags.TRIDENT_ENCHANTABLE)
                 .addTag(ItemTags.MACE_ENCHANTABLE)
-                .add(Items.ELYTRA, Items.SHIELD, Items.FISHING_ROD, Items.FLINT_AND_STEEL, Items.SHEARS, Items.BRUSH, Items.ENCHANTED_BOOK);
+                .add(Items.ELYTRA.builtInRegistryHolder().key(), Items.SHIELD.builtInRegistryHolder().key(), Items.FISHING_ROD.builtInRegistryHolder().key(), Items.FLINT_AND_STEEL.builtInRegistryHolder().key(), Items.SHEARS.builtInRegistryHolder().key(), Items.BRUSH.builtInRegistryHolder().key(), Items.ENCHANTED_BOOK.builtInRegistryHolder().key());
         this.tag(StorageTags.DRAWER_STORAGE_DENYLIST);
         this.tag(StorageTags.CREATIVE_VENDING_UPGRADE_INCOMPATIBLE);
     }

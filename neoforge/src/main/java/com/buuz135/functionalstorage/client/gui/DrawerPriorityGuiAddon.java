@@ -38,7 +38,6 @@ public class DrawerPriorityGuiAddon extends BasicScreenAddon {
         this.editBox = new EditBox(Minecraft.getInstance().font, guiX + getPosX() + 1, guiY + getPosY() + 14, 50, 16, Component.translatable("gui.functionalstorage.priority"));
         this.editBox.setBordered(true);
         this.editBox.setMaxLength(9);
-        this.editBox.setFilter(value -> value.chars().allMatch(Character::isDigit));
         this.editBox.setValue(String.valueOf(priority.get()));
         this.editBox.setResponder(this::onPriorityChanged);
     }
@@ -68,6 +67,7 @@ public class DrawerPriorityGuiAddon extends BasicScreenAddon {
 
     @Override
     public boolean charTyped(CharacterEvent event) {
+        if (!Character.isDigit(event.codepoint())) return true;
         return editBox != null && editBox.charTyped(event);
     }
 
@@ -94,6 +94,7 @@ public class DrawerPriorityGuiAddon extends BasicScreenAddon {
     }
 
     private void onPriorityChanged(String value) {
+        if (!value.chars().allMatch(Character::isDigit)) return;
         FunctionalStorage.NETWORK.sendToServer(new DrawerPriorityMessage(pos.get(), value.isEmpty() ? 0 : Integer.parseInt(value)));
     }
 }

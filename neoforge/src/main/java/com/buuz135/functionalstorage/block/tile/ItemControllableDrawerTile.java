@@ -15,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -100,7 +101,7 @@ public abstract class ItemControllableDrawerTile<T extends ItemControllableDrawe
                     ItemResource resource = getStorage().getResource(slot);
                     int extractedAmount = StorageTransferUtil.extract(getStorage(), slot, resource, playerIn.isShiftKeyDown() ? resource.getMaxStackSize() : 1, true);
                     ItemStack extracted = resource.toStack(extractedAmount);
-                    if (!playerIn.addItem(extracted)) playerIn.drop(extracted, false);
+                    if (!playerIn.addItem(extracted)) playerIn.drop(extracted, false, Prediction.SERVER_ONLY);
                 }
             }
         }

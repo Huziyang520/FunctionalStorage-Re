@@ -91,9 +91,9 @@ public final class FunctionalStorageClient {
 
         EventManager.forge(ItemTooltipEvent.class).filter(
                         event -> UpgradeItem.isDirectionUpgrade(event.getItemStack().getItem()) && event.getItemStack().has(FSAttachments.DIRECTION)
-                ).filter(event -> Minecraft.getInstance().screen != null && Minecraft.getInstance().screen instanceof BasicAddonScreen bcs && (bcs.getMenu().getObject() instanceof ItemControllableDrawerTile<?> || bcs.getMenu().getObject() instanceof FluidDrawerTile))
+                ).filter(event -> Minecraft.getInstance().gui.screen() != null && Minecraft.getInstance().gui.screen() instanceof BasicAddonScreen bcs && (bcs.getMenu().getObject() instanceof ItemControllableDrawerTile<?> || bcs.getMenu().getObject() instanceof FluidDrawerTile))
                 .process(event -> {
-                    var sc = (BasicAddonScreen) Minecraft.getInstance().screen;
+                    var sc = (BasicAddonScreen) Minecraft.getInstance().gui.screen();
                     var blockstate = ((ControllableDrawerTile<?>) sc.getMenu().getObject()).getBlockState();
                     if (blockstate.hasProperty(Drawer.FACING_HORIZONTAL_CUSTOM)) {
                         var direction = blockstate.getValue(Drawer.FACING_HORIZONTAL_CUSTOM);
@@ -187,7 +187,7 @@ public final class FunctionalStorageClient {
 
     private static void renderFluidDrawerHint(GuiGraphicsExtractor guiGraphics) {
         var minecraft = Minecraft.getInstance();
-        if (minecraft.options.hideGui || minecraft.screen != null || minecraft.player == null || minecraft.level == null) {
+        if (minecraft.gui.hud.isHidden() || minecraft.gui.screen() != null || minecraft.player == null || minecraft.level == null) {
             return;
         }
         if (!(minecraft.hitResult instanceof BlockHitResult blockHitResult) || blockHitResult.getType() != HitResult.Type.BLOCK) {
@@ -206,7 +206,7 @@ public final class FunctionalStorageClient {
                 Component.translatable("gui.functionalstorage.fluid_drawer_hint.fill", minecraft.options.keyAttack.getTranslatedKeyMessage()).withStyle(ChatFormatting.GRAY)
         ).stream().map(mutableComponent -> ClientTooltipComponent.create(mutableComponent.getVisualOrderText())).toList();
         guiGraphics.tooltip(minecraft.font, tooltip, guiGraphics.guiWidth() / 2 + 12, guiGraphics.guiHeight() / 2 + 12,
-                (i, i1, i2, i3, i4, i5) -> new Vector2i(minecraft.getWindow().getGuiScaledWidth() / 2 + 10, minecraft.getWindow().getGuiScaledHeight() / 2 -4), null
+                (i, i1, i2, i3, i4, i5) -> new Vector2i(minecraft.getWindow().getGuiScaledWidth() / 2 + 10, minecraft.getWindow().getGuiScaledHeight() / 2 -4), null, false
                 );
     }
 

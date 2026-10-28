@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 public class ArmoryCabinetScreen extends AbstractContainerScreen<ArmoryCabinetMenu> {
 
@@ -119,7 +119,7 @@ public class ArmoryCabinetScreen extends AbstractContainerScreen<ArmoryCabinetMe
 
     @Override
     public boolean keyPressed(KeyEvent event) {
-        if (searchBox != null && searchBox.isFocused() && event.key() != GLFW.GLFW_KEY_ESCAPE) {
+        if (searchBox != null && searchBox.isFocused() && event.key() != InputConstants.KEY_ESCAPE) {
             searchBox.keyPressed(event);
             return true;
         }

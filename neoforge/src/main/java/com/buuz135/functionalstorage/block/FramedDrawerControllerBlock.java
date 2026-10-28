@@ -33,7 +33,7 @@ import java.util.List;
 
 public class FramedDrawerControllerBlock extends StorageControllerBlock<FramedDrawerControllerTile> implements FramedBlock {
     public FramedDrawerControllerBlock() {
-        super("framed_storage_controller", Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion().isViewBlocking(((p_61036_, p_61037_, p_61038_) -> false)), FramedDrawerControllerTile.class);
+        super("framed_storage_controller", Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion().isViewBlocking(((state, level, pos, nearPlaneBox) -> false)), FramedDrawerControllerTile.class);
     }
 
     @Override

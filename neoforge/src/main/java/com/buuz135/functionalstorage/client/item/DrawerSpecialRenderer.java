@@ -44,12 +44,12 @@ public final class DrawerSpecialRenderer implements SpecialModelRenderer<DrawerS
     public void submit(@Nullable RenderData data, PoseStack pose, SubmitNodeCollector collector, int light, int overlay, boolean foil, int outlineColor) {
         if (data == null) return;
 
-        pose.mulPose(Axis.YP.rotationDegrees(180));
-        pose.mulPose(Axis.XN.rotationDegrees(90));
-        pose.mulPose(Axis.YP.rotationDegrees(90));
+        pose.mulPose(createTransformMatrix(new Vector3f(0), Axis.YP.rotationDegrees(180), 1));
+        pose.mulPose(createTransformMatrix(new Vector3f(0), Axis.XN.rotationDegrees(90), 1));
+        pose.mulPose(createTransformMatrix(new Vector3f(0), Axis.YP.rotationDegrees(90), 1));
         pose.translate(-1, 0, -1);
-        pose.mulPose(Axis.YP.rotationDegrees(-90));
-        pose.mulPose(Axis.XP.rotationDegrees(90));
+        pose.mulPose(createTransformMatrix(new Vector3f(0), Axis.YP.rotationDegrees(-90), 1));
+        pose.mulPose(createTransformMatrix(new Vector3f(0), Axis.XP.rotationDegrees(90), 1));
 
         if (kind == Kind.FLUID) {
             pose.translate(0, -1, -1);

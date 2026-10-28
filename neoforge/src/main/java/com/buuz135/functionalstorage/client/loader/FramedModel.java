@@ -208,7 +208,8 @@ public final class FramedModel implements DynamicBlockStateModel {
     private static BakedQuad applyMaterial(BakedQuad shape, BakedQuad sample, @Nullable Item material,
                                            BlockAndTintGetter level, BlockPos pos, boolean itemContext) {
         MutableQuad quad = new MutableQuad().setFrom(shape).setSpriteAndMoveUv(
-                sample.materialInfo().sprite(), sample.materialInfo().layer(), sample.materialInfo().itemRenderType());
+                sample.materialInfo().sprite(), sample.materialInfo().layer(), sample.materialInfo().itemRenderType(),
+                sample.materialInfo().itemGlintRenderType(), sample.materialInfo().itemGlintSpecialRenderType());
         quad.setTintIndex(-1);
 
         int tint = 0xFFFFFFFF;

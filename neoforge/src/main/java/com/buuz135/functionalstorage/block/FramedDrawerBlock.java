@@ -29,7 +29,7 @@ import java.util.stream.StreamSupport;
 public class FramedDrawerBlock extends DrawerBlock implements FramedBlock {
 
     public FramedDrawerBlock(FunctionalStorage.DrawerType type) {
-        super(DrawerWoodType.FRAMED, type, Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion().isViewBlocking((p_61036_, p_61037_, p_61038_) -> false));
+        super(DrawerWoodType.FRAMED, type, Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion().isViewBlocking((state, level, pos, nearPlaneBox) -> false));
     }
 
     @Override

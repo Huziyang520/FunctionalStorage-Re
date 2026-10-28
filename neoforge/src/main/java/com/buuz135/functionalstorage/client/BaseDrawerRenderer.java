@@ -5,7 +5,7 @@ package com.buuz135.functionalstorage.client;
 import com.buuz135.functionalstorage.block.Drawer;
 import com.buuz135.functionalstorage.block.tile.ControllableDrawerTile;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
@@ -84,7 +84,7 @@ public abstract class BaseDrawerRenderer<T extends ControllableDrawerTile<T>>
 
         matrixStack.translate(0, 0, -0.5 / 16D);
         int lightCoords = tile.getLevel() != null
-                ? LevelRenderer.getLightCoords(tile.getLevel(), tile.getBlockPos().relative(subfacing))
+                ? LightCoordsUtil.getLightCoords(tile.getLevel(), tile.getBlockPos().relative(subfacing))
                 : state.lightCoords;
         DrawerRenderer.renderUpgrades(matrixStack, collector, lightCoords, tile);
 

@@ -13,7 +13,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.block.FluidStateModelSet;
@@ -165,23 +165,23 @@ public class FluidDrawerRenderer implements BlockEntityRenderer<FluidDrawerTile,
             }
         }
         Direction facing = tile.getFacingDirection();
-        matrixStack.mulPose(Axis.YP.rotationDegrees(-180));
+        matrixStack.mulPose(createTransformMatrix(new Vector3f(0), Axis.YP.rotationDegrees(-180), 1));
         if (subfacing == Direction.NORTH) {
             matrixStack.translate(-1, 0, -1);
         }
         if (subfacing == Direction.EAST) {
             matrixStack.translate(0, 0, -1);
-            matrixStack.mulPose(Axis.YP.rotationDegrees(-90));
+            matrixStack.mulPose(createTransformMatrix(new Vector3f(0), Axis.YP.rotationDegrees(-90), 1));
         }
         if (subfacing == Direction.SOUTH) {
-            matrixStack.mulPose(Axis.YP.rotationDegrees(-180));
+            matrixStack.mulPose(createTransformMatrix(new Vector3f(0), Axis.YP.rotationDegrees(-180), 1));
         }
         if (subfacing == Direction.WEST) {
             matrixStack.translate(-1, 0, 0);
-            matrixStack.mulPose(Axis.YP.rotationDegrees(90));
+            matrixStack.mulPose(createTransformMatrix(new Vector3f(0), Axis.YP.rotationDegrees(90), 1));
         }
         int lightCoords = tile.getLevel() != null
-                ? LevelRenderer.getLightCoords(tile.getLevel(), tile.getBlockPos().relative(subfacing))
+                ? LightCoordsUtil.getLightCoords(tile.getLevel(), tile.getBlockPos().relative(subfacing))
                 : state.lightCoords;
 
         if (tile.getDrawerType() == FunctionalStorage.DrawerType.X_1)
