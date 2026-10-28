@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.DrawerTile;
 import com.buuz135.functionalstorage.block.tile.FramedDrawerTile;
@@ -32,7 +33,7 @@ public class FramedDrawerBlock extends DrawerBlock implements FramedBlock {
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<DrawerTile> getTileEntityFactory() {
+    public ITileFactory<DrawerTile> getTileEntityFactory() {
         return (blockPos, state) -> new FramedDrawerTile(this, (BlockEntityType<DrawerTile>) FunctionalStorage.DRAWER_TYPES.get(this.getType()).stream().filter(registryObjectRegistryObjectPair -> registryObjectRegistryObjectPair.getBlock() == this).map(BlockWithTile::type).findFirst().get().get(), blockPos, state, this.getType());
     }
 

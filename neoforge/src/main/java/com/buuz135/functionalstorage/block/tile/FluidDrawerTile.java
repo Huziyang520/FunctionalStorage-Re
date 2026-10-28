@@ -202,7 +202,7 @@ public class FluidDrawerTile extends ControllableDrawerTile<FluidDrawerTile> {
                     if (stack.getItem().equals(FunctionalStorage.STORAGE_UPGRADES.get(StorageUpgradeItem.StorageTier.IRON).get())) {
                         return true;
                     }
-                    return stack.has(FSAttachments.FLUID_STORAGE_MODIFIER) || stack.is(FunctionalStorage.CREATIVE_UPGRADE);
+                    return stack.has(FSAttachments.FLUID_STORAGE_MODIFIER) || stack.is(FunctionalStorage.CREATIVE_UPGRADE.get());
                 })
                 .setOnSlotChanged((stack, integer) -> {
                     setNeedsUpgradeCache(true);

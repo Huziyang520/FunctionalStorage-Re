@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.ControllerExtensionTile;
 import com.buuz135.functionalstorage.recipe.TagWithoutComponentIngredient;
@@ -24,7 +25,7 @@ public class ControllerExtensionBlock extends StorageControllerExtensionBlock<Co
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<?> getTileEntityFactory() {
+    public ITileFactory<?> getTileEntityFactory() {
         return (p_155268_, p_155269_) -> new ControllerExtensionTile(this, (BlockEntityType<ControllerExtensionTile>) FunctionalStorage.CONTROLLER_EXTENSION.type().get(), p_155268_, p_155269_);
     }
 

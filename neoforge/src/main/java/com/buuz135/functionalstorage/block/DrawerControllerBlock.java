@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.DrawerControllerTile;
 import com.buuz135.functionalstorage.recipe.TagWithoutComponentIngredient;
@@ -23,7 +24,7 @@ public class DrawerControllerBlock extends StorageControllerBlock<DrawerControll
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<?> getTileEntityFactory() {
+    public ITileFactory<?> getTileEntityFactory() {
         return (p_155268_, p_155269_) -> new DrawerControllerTile(this, (BlockEntityType<DrawerControllerTile>) FunctionalStorage.DRAWER_CONTROLLER.type().get(), p_155268_, p_155269_);
     }
 

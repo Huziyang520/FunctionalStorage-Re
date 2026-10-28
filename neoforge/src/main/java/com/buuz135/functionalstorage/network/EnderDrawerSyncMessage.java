@@ -2,11 +2,11 @@
 
 package com.buuz135.functionalstorage.network;
 
+import com.hrznstudio.titanium.network.IMessageContext;
 import com.buuz135.functionalstorage.inventory.EnderInventoryHandler;
 import com.buuz135.functionalstorage.world.EnderSavedData;
 import com.hrznstudio.titanium.network.CompoundSerializableDataHandler;
 import com.hrznstudio.titanium.network.Message;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class EnderDrawerSyncMessage extends Message {
 
@@ -33,12 +33,12 @@ public class EnderDrawerSyncMessage extends Message {
     }
 
     @Override
-    protected void handleServerMessage(IPayloadContext iPayloadContext) {
+    protected void handleServerMessage(com.hrznstudio.titanium.network.IMessageContext iPayloadContext) {
 
     }
 
     @Override
-    public void handleClientMessage(IPayloadContext context) {
+    public void handleClientMessage(com.hrznstudio.titanium.network.IMessageContext context) {
         EnderSavedData.getInstance(context.player().level()).setFrenquency(frequency, handler);
     }
 }

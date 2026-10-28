@@ -144,7 +144,7 @@ public abstract class ItemControllableDrawerTile<T extends ItemControllableDrawe
                 .setInputFilter((stack, integer) -> {
                     if (isStorageUpgradeLocked()) return false;
                     if (!canUseStorageUpgradeWithCreative(stack, integer)) return false;
-                    if (stack.is(FunctionalStorage.CREATIVE_UPGRADE)) return true;
+                    if (stack.is(FunctionalStorage.CREATIVE_UPGRADE.get())) return true;
                     if (!stack.has(FSAttachments.ITEM_STORAGE_MODIFIER)) return false;
 
                     var replacement = new ItemStack[getStorageUpgrades().getSlots()];

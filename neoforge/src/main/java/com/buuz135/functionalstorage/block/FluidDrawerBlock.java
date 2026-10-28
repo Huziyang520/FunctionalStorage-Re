@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.FluidDrawerTile;
 import com.buuz135.functionalstorage.inventory.item.FluidDrawerStackItemHandler;
@@ -58,7 +59,7 @@ public class FluidDrawerBlock extends Drawer<FluidDrawerTile>{
         return boxes;
     }
     @Override
-    public BlockEntityType.BlockEntitySupplier<FluidDrawerTile> getTileEntityFactory() {
+    public ITileFactory<FluidDrawerTile> getTileEntityFactory() {
         return (blockPos, state) -> {
             BlockEntityType<FluidDrawerTile> entityType = (BlockEntityType<FluidDrawerTile>) FunctionalStorage.FLUID_DRAWER_1.type().get();
             if (type == FunctionalStorage.DrawerType.X_2) {

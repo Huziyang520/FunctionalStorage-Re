@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.CompactingDrawerTile;
 import com.buuz135.functionalstorage.block.tile.CompactingFramedDrawerTile;
@@ -43,7 +44,7 @@ public class CompactingFramedDrawerBlock extends CompactingDrawerBlock implement
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<CompactingDrawerTile> getTileEntityFactory() {
+    public ITileFactory<CompactingDrawerTile> getTileEntityFactory() {
         return (blockPos, state) -> new CompactingFramedDrawerTile(this,  (BlockEntityType<CompactingDrawerTile>) FunctionalStorage.FRAMED_COMPACTING_DRAWER.type().get(), blockPos, state);
     }
 

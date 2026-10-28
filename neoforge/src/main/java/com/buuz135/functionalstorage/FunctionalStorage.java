@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage;
 
+import java.util.function.Supplier;
 import com.buuz135.functionalstorage.block.ArmoryCabinetBlock;
 import com.buuz135.functionalstorage.block.CompactingDrawerBlock;
 import com.buuz135.functionalstorage.block.CompactingFramedDrawerBlock;
@@ -66,7 +67,6 @@ import com.buuz135.functionalstorage.util.DrawerWoodType;
 import com.buuz135.functionalstorage.util.IWoodType;
 import com.buuz135.functionalstorage.util.NumberUtils;
 import com.hrznstudio.titanium.event.handler.EventManager;
-import com.hrznstudio.titanium.datagenerator.loot.TitaniumLootTableProvider;
 import com.hrznstudio.titanium.module.BlockWithTile;
 import com.hrznstudio.titanium.module.ModuleController;
 import com.hrznstudio.titanium.nbthandler.NBTManager;
@@ -120,7 +120,6 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.fluids.FluidStackTemplate;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -156,7 +155,7 @@ public class FunctionalStorage extends ModuleController {
     public static BlockWithTile COMPACTING_DRAWER;
     public static BlockWithTile DRAWER_CONTROLLER;
     public static BlockWithTile ARMORY_CABINET;
-    public static DeferredHolder<MenuType<?>, MenuType<?>> ARMORY_CABINET_MENU;
+    public static Supplier<MenuType<?>> ARMORY_CABINET_MENU;
     public static BlockWithTile ENDER_DRAWER;
     public static BlockWithTile FRAMED_COMPACTING_DRAWER;
     public static BlockWithTile FLUID_DRAWER_1;
@@ -171,20 +170,20 @@ public class FunctionalStorage extends ModuleController {
     public static BlockWithTile FRAMED_FLUID_DRAWER_2;
     public static BlockWithTile FRAMED_FLUID_DRAWER_4;
 
-    public static DeferredHolder<Item, Item> LINKING_TOOL;
-    public static HashMap<StorageUpgradeItem.StorageTier, DeferredHolder<Item, Item>> STORAGE_UPGRADES = new HashMap<>();
-    public static DeferredHolder<Item, Item> COLLECTOR_UPGRADE;
-    public static DeferredHolder<Item, Item> PULLING_UPGRADE;
-    public static DeferredHolder<Item, Item> PUSHING_UPGRADE;
-    public static DeferredHolder<Item, Item> VOID_UPGRADE;
-    public static DeferredHolder<Item, Item> CONFIGURATION_TOOL;
-    public static DeferredHolder<Item, Item> REDSTONE_UPGRADE;
-    public static DeferredHolder<Item, Item> CREATIVE_UPGRADE;
+    public static Supplier<Item> LINKING_TOOL;
+    public static HashMap<StorageUpgradeItem.StorageTier, Supplier<Item>> STORAGE_UPGRADES = new HashMap<>();
+    public static Supplier<Item> COLLECTOR_UPGRADE;
+    public static Supplier<Item> PULLING_UPGRADE;
+    public static Supplier<Item> PUSHING_UPGRADE;
+    public static Supplier<Item> VOID_UPGRADE;
+    public static Supplier<Item> CONFIGURATION_TOOL;
+    public static Supplier<Item> REDSTONE_UPGRADE;
+    public static Supplier<Item> CREATIVE_UPGRADE;
 
-    public static DeferredHolder<Item, Item> OBSIDIAN_UPGRADE;
+    public static Supplier<Item> OBSIDIAN_UPGRADE;
 
-    public static DeferredHolder<Item, Item> DRIPPING_UPGRADE;
-    public static DeferredHolder<Item, Item> WATER_GENERATOR_UPGRADE;
+    public static Supplier<Item> DRIPPING_UPGRADE;
+    public static Supplier<Item> WATER_GENERATOR_UPGRADE;
 
     public static TitaniumTab TAB = new TitaniumTab(com.buuz135.functionalstorage.util.Utils.resourceLocation(MOD_ID, "main"));
 
@@ -326,21 +325,21 @@ public class FunctionalStorage extends ModuleController {
                 return true;
             }
         });
-        DrawerlessWoodIngredient.TYPE = getRegistries().registerGeneric(NeoForgeRegistries.Keys.INGREDIENT_TYPES, DrawerlessWoodIngredient.NAME.getPath(), () -> new IngredientType<>(DrawerlessWoodIngredient.CODEC));
-        TagWithoutComponentIngredient.TYPE = getRegistries().registerGeneric(NeoForgeRegistries.Keys.INGREDIENT_TYPES, TagWithoutComponentIngredient.NAME.getPath(), () -> new IngredientType<>(TagWithoutComponentIngredient.CODEC));
+        DrawerlessWoodIngredient.TYPE = getRegistries().registerHolder(NeoForgeRegistries.Keys.INGREDIENT_TYPES, DrawerlessWoodIngredient.NAME.getPath(), () -> new IngredientType<>(DrawerlessWoodIngredient.CODEC));
+        TagWithoutComponentIngredient.TYPE = getRegistries().registerHolder(NeoForgeRegistries.Keys.INGREDIENT_TYPES, TagWithoutComponentIngredient.NAME.getPath(), () -> new IngredientType<>(TagWithoutComponentIngredient.CODEC));
 
         this.addCreativeTab("main", () -> new ItemStack(DRAWER_CONTROLLER), MOD_ID, TAB);
 
-        CUSTOM_COMPACTING_RECIPE_TYPE = getRegistries().registerGeneric(Registries.RECIPE_TYPE, "custom_compacting", () -> RecipeType.simple(com.buuz135.functionalstorage.util.Utils.resourceLocation(MOD_ID, "custom_compacting")));
+        CUSTOM_COMPACTING_RECIPE_TYPE = getRegistries().registerHolder(Registries.RECIPE_TYPE, "custom_compacting", () -> RecipeType.simple(com.buuz135.functionalstorage.util.Utils.resourceLocation(MOD_ID, "custom_compacting")));
 
-        CUSTOM_COMPACTING_RECIPE_SERIALIZER = getRegistries().registerGeneric(Registries.RECIPE_SERIALIZER, "custom_compacting", () -> new RecipeSerializer<>(CustomCompactingRecipe.CODEC, CustomCompactingRecipe.STREAM_CODEC));
+        CUSTOM_COMPACTING_RECIPE_SERIALIZER = getRegistries().registerHolder(Registries.RECIPE_SERIALIZER, "custom_compacting", () -> new RecipeSerializer<>(CustomCompactingRecipe.CODEC, CustomCompactingRecipe.STREAM_CODEC));
 
-        FRAMED_RECIPE_TYPE = getRegistries().registerGeneric(Registries.RECIPE_TYPE, "framed_recipe", () -> RecipeType.simple(com.buuz135.functionalstorage.util.Utils.resourceLocation(MOD_ID, "framed_recipe")));
+        FRAMED_RECIPE_TYPE = getRegistries().registerHolder(Registries.RECIPE_TYPE, "framed_recipe", () -> RecipeType.simple(com.buuz135.functionalstorage.util.Utils.resourceLocation(MOD_ID, "framed_recipe")));
 
-        FRAMED_RECIPE_SERIALIZER = getRegistries().registerGeneric(Registries.RECIPE_SERIALIZER, "framed_recipe",
+        FRAMED_RECIPE_SERIALIZER = getRegistries().registerHolder(Registries.RECIPE_SERIALIZER, "framed_recipe",
                 () -> new RecipeSerializer<>(MapCodec.unit(FramedDrawerRecipe::new),
                         StreamCodec.of((buffer, recipe) -> {}, buffer -> new FramedDrawerRecipe())));
-        COPY_COMPONENTS_SERIALIZER = getRegistries().registerGeneric(Registries.RECIPE_SERIALIZER, "copy_components",
+        COPY_COMPONENTS_SERIALIZER = getRegistries().registerHolder(Registries.RECIPE_SERIALIZER, "copy_components",
                 () -> new RecipeSerializer<>(CopyComponentsRecipe.CODEC, CopyComponentsRecipe.STREAM_CODEC));
 
         getRegistries().registerGeneric(FunctionalUpgradeBehavior.REGISTRY_KEY, "delegate_to_item", () -> DelegateToItemBehavior.CODEC);
@@ -374,10 +373,8 @@ public class FunctionalStorage extends ModuleController {
 
         eventBus.addListener(EventPriority.LOWEST, (final RegisterEvent regEvent) -> {
                     if (regEvent.getRegistryKey() == Registries.BLOCK) {
-                        FRAMED_BLOCKS = getRegistries().getRegistry(Registries.BLOCK)
-                                .getEntries().stream()
-                                .filter(bl -> bl.value() instanceof FramedBlock)
-                                .map(Holder::value)
+                        FRAMED_BLOCKS = net.minecraft.core.registries.BuiltInRegistries.BLOCK.stream()
+                                .filter(bl -> bl instanceof FramedBlock)
                                 .toList();
                     }
                 });
@@ -395,7 +392,6 @@ public class FunctionalStorage extends ModuleController {
             event.addProvider(new FunctionalStorageLangProvider(event.getGenerator().getPackOutput(), MOD_ID, "en_us"));
         }
         if (event instanceof GatherDataEvent.Server) {
-            event.addProvider(new TitaniumLootTableProvider(event.getGenerator(), blocksToProcess, event.getLookupProvider()));
             event.addProvider(new FunctionalStorageBlockTagsProvider(event.getGenerator().getPackOutput(), event.getLookupProvider(), MOD_ID));
             event.addProvider(new FunctionalStorageItemTagsProvider(event.getGenerator().getPackOutput(), event.getLookupProvider(), MOD_ID));
             event.addProvider(new FunctionalStorageFluidTagsProvider(event.getGenerator().getPackOutput(), event.getLookupProvider(), MOD_ID));

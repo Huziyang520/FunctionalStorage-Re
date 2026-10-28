@@ -2,10 +2,10 @@
 
 package com.buuz135.functionalstorage.network;
 
+import com.hrznstudio.titanium.network.IMessageContext;
 import com.buuz135.functionalstorage.block.tile.ControllableDrawerTile;
 import com.hrznstudio.titanium.network.Message;
 import net.minecraft.core.BlockPos;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class DrawerPriorityMessage extends Message {
 
@@ -25,7 +25,7 @@ public class DrawerPriorityMessage extends Message {
     }
 
     @Override
-    protected void handleServerMessage(IPayloadContext context) {
+    protected void handleServerMessage(com.hrznstudio.titanium.network.IMessageContext context) {
         BlockPos pos = new BlockPos(x, y, z);
         if (context.player().distanceToSqr(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D) > 64D) {
             return;

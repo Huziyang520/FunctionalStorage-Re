@@ -113,16 +113,16 @@ public abstract class ControllableDrawerTile<T extends ControllableDrawerTile<T>
 
     @Override
     protected void loadAdditional(ValueInput input) {
-        if (input.child("storageUpgrades").isPresent()) {
-            storageUpgrades.deserialize(input.childOrEmpty("storageUpgrades"));
+        input.read("storageUpgrades", net.minecraft.nbt.CompoundTag.CODEC).ifPresent(tag -> {
+            storageUpgrades.deserializeNBT(registryProvider(), tag);
             recalculateUpgrades();
-        }
+        });
         super.loadAdditional(input);
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
-        storageUpgrades.serialize(output.child("storageUpgrades"));
+        output.store("storageUpgrades", net.minecraft.nbt.CompoundTag.CODEC, storageUpgrades.serializeNBT(registryProvider()));
         super.saveAdditional(output);
     }
 
@@ -277,7 +277,7 @@ public abstract class ControllableDrawerTile<T extends ControllableDrawerTile<T>
     }
 
     protected boolean canUseStorageUpgradeWithCreative(ItemStack stack, int slot) {
-        boolean insertingCreative = stack.is(FunctionalStorage.CREATIVE_UPGRADE);
+        boolean insertingCreative = stack.is(FunctionalStorage.CREATIVE_UPGRADE.get());
         boolean insertingCreativeIncompatible = stack.is(StorageTags.CREATIVE_VENDING_UPGRADE_INCOMPATIBLE);
         if (!insertingCreative && !insertingCreativeIncompatible) {
             return true;
@@ -287,7 +287,7 @@ public abstract class ControllableDrawerTile<T extends ControllableDrawerTile<T>
                 continue;
             }
             ItemStack stored = storageUpgrades.getStackInSlot(i);
-            if ((insertingCreative && stored.is(StorageTags.CREATIVE_VENDING_UPGRADE_INCOMPATIBLE)) || (insertingCreativeIncompatible && stored.is(FunctionalStorage.CREATIVE_UPGRADE))) {
+            if ((insertingCreative && stored.is(StorageTags.CREATIVE_VENDING_UPGRADE_INCOMPATIBLE)) || (insertingCreativeIncompatible && stored.is(FunctionalStorage.CREATIVE_UPGRADE.get()))) {
                 return false;
             }
         }
@@ -538,5 +538,9 @@ public abstract class ControllableDrawerTile<T extends ControllableDrawerTile<T>
                 }
             }
         }
+    }
+
+    private net.minecraft.core.HolderLookup.Provider registryProvider() {
+        return this.level == null ? net.minecraft.core.RegistryAccess.EMPTY : this.level.registryAccess();
     }
 }

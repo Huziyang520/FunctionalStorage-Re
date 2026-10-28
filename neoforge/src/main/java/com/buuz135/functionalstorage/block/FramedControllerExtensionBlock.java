@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.FramedControllerExtensionTile;
 import com.buuz135.functionalstorage.item.FSAttachments;
@@ -37,7 +38,7 @@ public class FramedControllerExtensionBlock extends StorageControllerExtensionBl
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<?> getTileEntityFactory() {
+    public ITileFactory<?> getTileEntityFactory() {
         return ((p_155268_, p_155269_) -> new FramedControllerExtensionTile(this, (BlockEntityType<FramedControllerExtensionTile>) FunctionalStorage.FRAMED_CONTROLLER_EXTENSION.type().get(), p_155268_, p_155269_));
     }
 

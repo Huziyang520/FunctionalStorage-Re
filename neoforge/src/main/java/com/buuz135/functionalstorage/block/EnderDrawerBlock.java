@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.EnderDrawerTile;
 import com.buuz135.functionalstorage.block.tile.StorageControllerTile;
@@ -58,7 +59,7 @@ public class EnderDrawerBlock extends Drawer<EnderDrawerTile> {
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<EnderDrawerTile> getTileEntityFactory() {
+    public ITileFactory<EnderDrawerTile> getTileEntityFactory() {
         return (blockPos, state) -> new EnderDrawerTile(this, (BlockEntityType<EnderDrawerTile>) FunctionalStorage.ENDER_DRAWER.type().get(),blockPos, state);
     }
 

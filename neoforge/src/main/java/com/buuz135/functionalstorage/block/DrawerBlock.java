@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.DrawerTile;
 import com.buuz135.functionalstorage.inventory.item.DrawerStackItemHandler;
@@ -157,7 +158,7 @@ public class DrawerBlock extends Drawer<DrawerTile> {
         registerDefaultState(defaultBlockState().setValue(Drawer.FACING_HORIZONTAL_CUSTOM, Direction.NORTH).setValue(Drawer.FACING_ALL, Direction.DOWN).setValue(LOCKED, false));
     }
     @Override
-    public BlockEntityType.BlockEntitySupplier<DrawerTile> getTileEntityFactory() {
+    public ITileFactory<DrawerTile> getTileEntityFactory() {
         return (blockPos, state) -> new DrawerTile(this, (BlockEntityType<DrawerTile>) FunctionalStorage.DRAWER_TYPES.get(type).stream().filter(registryObjectRegistryObjectPair -> registryObjectRegistryObjectPair.getBlock() == this).map(BlockWithTile::type).findFirst().get().get(), blockPos, state, type, woodType);
     }
 

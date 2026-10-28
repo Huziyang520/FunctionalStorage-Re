@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.SimpleCompactingDrawerTile;
 import com.buuz135.functionalstorage.recipe.TagWithoutComponentIngredient;
@@ -51,7 +52,7 @@ public class SimpleCompactingDrawerBlock extends Drawer<SimpleCompactingDrawerTi
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<SimpleCompactingDrawerTile> getTileEntityFactory() {
+    public ITileFactory<SimpleCompactingDrawerTile> getTileEntityFactory() {
         return (blockPos, state) -> new SimpleCompactingDrawerTile(this, (BlockEntityType<SimpleCompactingDrawerTile>) FunctionalStorage.SIMPLE_COMPACTING_DRAWER.type().get(), blockPos, state);
     }
 

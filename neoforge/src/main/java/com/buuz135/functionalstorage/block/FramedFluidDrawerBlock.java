@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.FluidDrawerTile;
 import com.buuz135.functionalstorage.block.tile.FramedFluidDrawerTile;
@@ -18,7 +19,7 @@ public class FramedFluidDrawerBlock extends FluidDrawerBlock implements FramedBl
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<FluidDrawerTile> getTileEntityFactory() {
+    public ITileFactory<FluidDrawerTile> getTileEntityFactory() {
         return (blockPos, state) -> {
             BlockEntityType<FluidDrawerTile> entityType = (BlockEntityType<FluidDrawerTile>) FunctionalStorage.FRAMED_FLUID_DRAWER_1.type().get();
             if (this.getType() == FunctionalStorage.DrawerType.X_2) {

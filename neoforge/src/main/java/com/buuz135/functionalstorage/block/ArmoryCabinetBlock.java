@@ -2,6 +2,7 @@
 
 package com.buuz135.functionalstorage.block;
 
+import com.hrznstudio.titanium.block.tile.ITileFactory;
 import com.buuz135.functionalstorage.FunctionalStorage;
 import com.buuz135.functionalstorage.block.tile.ArmoryCabinetTile;
 import com.buuz135.functionalstorage.item.FSAttachments;
@@ -40,7 +41,7 @@ public class ArmoryCabinetBlock extends RotatableBlock<ArmoryCabinetTile> {
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<?> getTileEntityFactory() {
+    public ITileFactory<?> getTileEntityFactory() {
         return (p_155268_, p_155269_) -> new ArmoryCabinetTile(this, FunctionalStorage.ARMORY_CABINET.type().get(), p_155268_, p_155269_);
     }
 

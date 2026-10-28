@@ -4,9 +4,8 @@ package com.buuz135.functionalstorage.block.config;
 
 import com.hrznstudio.titanium.annotation.config.ConfigFile;
 import com.hrznstudio.titanium.annotation.config.ConfigVal;
-import net.neoforged.fml.config.ModConfig;
 
-@ConfigFile(value = "functionalstorage-common", type = ModConfig.Type.STARTUP)
+@ConfigFile(value = "functionalstorage-common", type = com.hrznstudio.titanium.platform.IConfigScope.STARTUP)
 public class FunctionalStorageConfig {
 
     @ConfigVal(comment = "Armory slot amount")
