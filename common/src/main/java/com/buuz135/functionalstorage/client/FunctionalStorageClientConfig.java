@@ -5,7 +5,7 @@ package com.buuz135.functionalstorage.client;
 import com.hrznstudio.titanium.annotation.config.ConfigFile;
 import com.hrznstudio.titanium.annotation.config.ConfigVal;
 
-@ConfigFile(value = "functionalstorage-client")
+@ConfigFile(value = "functionalstorage-client", type = com.hrznstudio.titanium.platform.IConfigScope.CLIENT)
 public class FunctionalStorageClientConfig {
 
     @ConfigVal(comment = "Drawer content render range in blocks")
