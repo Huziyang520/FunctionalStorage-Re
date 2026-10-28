@@ -9,8 +9,12 @@ repositories {
 }
 
     def titaniumJar = rootProject.file("libs/titanium-${titanium_version}-neoforge-${mc_range_label}.jar")
+    def jeiJar = rootProject.file('libs/jei-26.1.2-neoforge-29.47.0.111.jar')
+    def jadeJar = rootProject.file('libs/Jade-mc26.1-NeoForge-26.1.12.jar')
 
 dependencies {
+    if (jeiJar.exists()) compileOnly files(jeiJar)
+    if (jadeJar.exists()) compileOnly files(jadeJar)
     if (titaniumJar.exists()) {
         compileOnly files(titaniumJar)
         if (configurations.findByName('jarJar') != null) {

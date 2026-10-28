@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "functionalstorage:gold_upgrade"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "#c:storage_blocks/gold",
+    "C": "#c:chests/wooden",
+    "D": "functionalstorage:copper_upgrade",
+    "I": "#c:ingots/gold"
+  },
+  "pattern": [
+    "IBI",
+    "CDC",
+    "BIB"
+  ],
+  "result": {
+    "id": "functionalstorage:gold_upgrade"
+  }
+}

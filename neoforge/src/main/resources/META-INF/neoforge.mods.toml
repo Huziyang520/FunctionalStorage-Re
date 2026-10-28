@@ -8,6 +8,7 @@ version = "${version}"
 displayName = "${mod_name}"
 authors = "${mod_author}"
 iconFile="${mod_id}.png"
+logoFile="${mod_id}.png"
 displayURL = "${mod_display_url}"
 issueTrackerURL = "${mod_issue_tracker_url}"
 description = '''${description}'''
@@ -36,5 +37,19 @@ side = "BOTH"
 modId = "titanium"
 type = "required"
 versionRange = "[4.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "jei"
+type = "optional"
+versionRange = "[1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "jade"
+type = "optional"
+versionRange = "[1,)"
 ordering = "NONE"
 side = "BOTH"
