@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:framed_2"
+        "recipes": "functionalstorage:framed_2"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

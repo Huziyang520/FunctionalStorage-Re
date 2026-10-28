@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:mangrove_4"
+        "recipes": "functionalstorage:mangrove_4"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

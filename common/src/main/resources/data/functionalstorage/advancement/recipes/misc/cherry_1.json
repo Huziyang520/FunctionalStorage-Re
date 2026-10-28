@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:cherry_1"
+        "recipes": "functionalstorage:cherry_1"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

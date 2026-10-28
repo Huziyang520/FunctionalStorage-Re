@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:controller_extension"
+        "recipes": "functionalstorage:controller_extension"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

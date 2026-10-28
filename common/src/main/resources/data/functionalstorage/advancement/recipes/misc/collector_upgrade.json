@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:collector_upgrade"
+        "recipes": "functionalstorage:collector_upgrade"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

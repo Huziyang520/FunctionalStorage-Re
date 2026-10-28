@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:birch_2"
+        "recipes": "functionalstorage:birch_2"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

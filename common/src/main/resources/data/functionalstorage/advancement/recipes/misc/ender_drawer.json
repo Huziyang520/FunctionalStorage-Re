@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:ender_drawer"
+        "recipes": "functionalstorage:ender_drawer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

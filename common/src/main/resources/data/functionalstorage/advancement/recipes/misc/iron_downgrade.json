@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:iron_downgrade"
+        "recipes": "functionalstorage:iron_downgrade"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

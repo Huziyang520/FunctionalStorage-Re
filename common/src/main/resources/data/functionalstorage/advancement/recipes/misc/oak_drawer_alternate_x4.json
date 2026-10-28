@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:oak_drawer_alternate_x4"
+        "recipes": "functionalstorage:oak_drawer_alternate_x4"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

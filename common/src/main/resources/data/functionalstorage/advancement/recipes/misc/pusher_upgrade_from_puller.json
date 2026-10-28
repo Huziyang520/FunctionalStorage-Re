@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:pusher_upgrade_from_puller"
+        "recipes": "functionalstorage:pusher_upgrade_from_puller"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

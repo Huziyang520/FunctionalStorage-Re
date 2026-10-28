@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:spruce_2"
+        "recipes": "functionalstorage:spruce_2"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

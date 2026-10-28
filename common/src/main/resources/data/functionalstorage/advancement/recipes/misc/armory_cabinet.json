@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:armory_cabinet"
+        "recipes": "functionalstorage:armory_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

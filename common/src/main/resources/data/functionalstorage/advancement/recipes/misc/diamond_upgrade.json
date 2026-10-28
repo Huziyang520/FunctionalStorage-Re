@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:diamond_upgrade"
+        "recipes": "functionalstorage:diamond_upgrade"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

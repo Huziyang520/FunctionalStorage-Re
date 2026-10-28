@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:linking_tool"
+        "recipes": "functionalstorage:linking_tool"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

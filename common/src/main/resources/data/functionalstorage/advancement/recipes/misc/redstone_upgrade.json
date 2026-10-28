@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:redstone_upgrade"
+        "recipes": "functionalstorage:redstone_upgrade"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:simple_compacting_drawer"
+        "recipes": "functionalstorage:simple_compacting_drawer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

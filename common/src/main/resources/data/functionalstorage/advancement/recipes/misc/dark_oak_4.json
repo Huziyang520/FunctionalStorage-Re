@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:dark_oak_4"
+        "recipes": "functionalstorage:dark_oak_4"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

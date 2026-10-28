@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "functionalstorage:pale_oak_4"
+        "recipes": "functionalstorage:pale_oak_4"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
